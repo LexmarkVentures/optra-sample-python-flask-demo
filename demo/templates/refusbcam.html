@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+{% endblock head %}
+
+{% block content %}
+    {{ super() }}
+    <br>
+    <button onclick="window.location.href='/refresh_usb_cameras';" class="button buttonOptra">Refresh USB Cameras</button>
+    <button onclick="window.location.href='/cameras';" class="button buttonOptra">Return to Cameras</button>
+    <h2>USB Camera Info:</h2>
+    <p><pre><code><div id=ta>{{list}}</div></code></pre></p>
+
+{% endblock content %}

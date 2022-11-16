@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+{% endblock head %}
+
+{% block content %}
+    {{ super() }}
+    <h1>Cameras</h1>
+    <h2>Video Streaming with OpenCV</h2>
+    <form method="POST" action="{{ url_for('change_camera') }}">
+        Camera:
+        <select name="selectedCamera" class="selectpicker">
+            {% for item in cameraList %}
+                {% if selectedCamera == item %}
+                    <option value="{{ item }}" selected>{{ item }}</option>
+                {% else %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <button class="buttonSmall buttonOptra" type="submit">Submit</button>
+    </form>
+    <p>
+    <button onclick="window.location.href='/add_rtsp_camera';" class="button buttonOptra">Add RTSP Camera</button>
+    <button onclick="window.location.href='/refresh_usb_cameras';" class="button buttonOptra">Refresh USB Cameras</button>
+    <button onclick="window.location.href='/capture_image';" class="button buttonOptra">Capture Image</button>
+    </p>
+    {% if cameraType == "USB" %}
+        <p>For USB Cameras only:</p>
+        <div style="margin: 0 0 0 20">
+            <form class="box" method="POST" action="{{ url_for('change_pixel_format') }}">
+                <div style="width: 100">
+                    Pixel Format:
+                </div>
+                <div style="width: 100">
+                    <select name="pixelFormat" class="selectpicker form-control">
+                        {% for item in pixelFormats %}
+                            {% if pixelFormat == item %}
+                                <option value="{{ item }}" selected>{{ item }}</option>
+                            {% else %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <button class="buttonSmall buttonOptra" type="submit">Submit</button>
+                </div>
+            </form>
+            <form class="box" method="POST" action="{{ url_for('change_usb_camera_resolution') }}">
+                <div style="width: 100">
+                    Resolution:
+                </div>
+                <div style="width: 100">
+                    <select name="usbCameraResolution" class="selectpicker form-control">
+                        {% for item in usbCameraResolutions %}
+                            {% if usbCameraResolution == item %}
+                                <option value="{{ item }}" selected>{{ item }}</option>
+                            {% else %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <button class="buttonSmall buttonOptra" type="submit">Submit</button>
+                </div>
+            </form>
+            <form class="box" method="POST" action="{{ url_for('change_usb_camera_frame_rate') }}">
+                <div style="width: 100">
+                    Frame Rate:
+                </div>
+                <div style="width: 100">
+                    <select name="usbCameraFrameRate" class="selectpicker form-control">
+                        {% for item in usbCameraFrameRates %}
+                            {% if usbCameraFrameRate == item %}
+                                <option value="{{ item }}" selected>{{ item }}</option>
+                            {% else %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <button class="buttonSmall buttonOptra" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+    {% if cameraType == "RTSP" %}
+        <p>For Axis RTSP Cameras only:</p>
+        <div style="height: 75; margin: 0 0 0 20">
+            <form class="box" method="POST" action="{{ url_for('change_camera_attributes') }}">
+                <div style="width: 100; height: 25">
+                    Resolution:
+                </div>
+                <div style="width: 100; height: 25">
+                    <select name="cameraResolution" class="selectpicker form-control">
+                        {% for item in cameraResolutions %}
+                            {% if cameraResolution == item %}
+                                <option value="{{ item }}" selected>{{ item }}</option>
+                            {% else %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div style="width: 100; height: 25">
+                    <br>
+                </div>
+                <div style="width: 100; height: 25">
+                    Compression:
+                </div>
+                <div style="width: 100; height: 25">
+                    <select name="cameraCompression" class="selectpicker form-control">
+                        {% for item in cameraCompressions %}
+                            {% if cameraCompression == item %}
+                                <option value="{{ item }}" selected>{{ item }}</option>
+                            {% else %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div style="width: 100; height: 25">
+                    <br>
+                </div>
+                <div style="width: 100; height: 25">
+                    Frames/Sec:
+                </div>
+                <div style="width: 100; height: 25">
+                    <select name="fpsValue" class="selectpicker form-control">
+                        {% for item in fpsValues %}
+                            {% if fpsValue == item %}
+                                <option value="{{ item }}" selected>{{ item }}</option>
+                            {% else %}
+                                <option value="{{ item }}">{{ item }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div style="width: 100; height: 25">
+                    <button class="buttonSmall buttonOptra" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+    <p><form method="POST" action="{{ url_for('change_classifier') }}">
+        Haar Cascade Classifier:
+        <select name="selectedClassifier" class="selectpicker">
+            {% for item in classifierList %}
+                {% if selectedClassifier == item %}
+                    <option value="{{ item }}" selected>{{ item }}</option>
+                {% else %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <button class="buttonSmall buttonOptra" type="submit">Submit</button>
+    </p></form>
+    <h3>Camera Source: {{ cameraSource }}</h3>
+ 
+    <div class="video-box">
+        <img src="{{ url_for('video_feed') }}">
+    </div>
+{% endblock content %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+{% endblock head %}
+
+{% block content %}
+    {{ super() }}
+    <h1>Video<h1>
+    <h2>X11 Apps</h2>
+    <p>Use buttons to start X11 Apps on the HDMI port.</p>    
+    <p style="color:red;">{{warning}}</p>
+    <button onclick="window.location.href='/xclock';" class="button buttonOptra">xclock</button>
+    <button onclick="window.location.href='/xlogo';" class="button buttonOptra">xlogo</button>
+    <button onclick="window.location.href='/xterm';" class="button buttonOptra">xterm</button>
+    <p><button onclick="window.location.href='/stopx';" class="button buttonRed">Stop X11 Apps</button></p>
+    <h2>Play Video</h2>
+    <p>Use buttons to start a video on the HDMI port.</p>    
+    <button onclick="window.location.href='/playvideo?videofile=earth.mp4';" class="button buttonOptra">Earth</button>
+    <button onclick="window.location.href='/playvideo?videofile=sunset.mp4';" class="button buttonOptra">Sunset</button>
+    <button onclick="window.location.href='/playvideo?videofile=fire.mp4';" class="button buttonOptra">Fire</button>
+    <button onclick="window.location.href='/playvideo?videofile=Lake_Erie.mp4';" class="button buttonOptra">Lake Erie</button>
+    <button onclick="window.location.href='/playcamera';" class="button buttonOptra">Camera</button>
+    <p><button onclick="window.location.href='/stopvideo';" class="button buttonRed">Stop Videos</button></p>
+
+    <form class="form-inline" method="POST" action="{{ url_for('change_audio_output', return_to='video') }}">
+        <div class="input-group audioOutput">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><h2>Audio Output:</h2></span>
+            </div>
+            <select name="audioOutput" class="selectpicker form-control>
+                {% for item in audioOutputs %}
+                    {% if audioOutput == item %}
+                        <option value="{{ item }}" selected>{{ item }}</option>
+                    {% else %}
+                        <option value="{{ item }}">{{ item }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <button class="buttonSmall buttonOptra" type="submit">Submit</button>
+        </div>
+    </form>
+
+    <form method="POST" action="{{url_for('change_volume', return_to='video')}}">
+        <div class="slidecontainer" id="slide_container_v">
+        <h2>Volume (Headphone Jack):</h2>
+        <input type="range" min={{min}} max={{max}} value={{volume}} class="slider"
+            id="myRange" name="volume">
+        Current Volume: {{volume}}<br>
+        New Volume: <span id="vol"></span><br>
+        <input class="buttonSmall buttonOptra" type="submit" value="Submit">
+        </div>
+    </form>
+
+    <script>
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("vol");
+    output.innerHTML = slider.value;
+
+    slider.oninput = function() {
+      output.innerHTML = this.value;
+    }
+    </script>
+
+{% endblock content %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block head %}
+    <meta http-equiv="refresh" content="1" >
+    {{ super() }}
+{% endblock head %}
+
+{% block content %}
+    {{ super() }}
+    <h1>System</h1>
+    <p><pre><code>{{top}}</code></pre></p>
+
+{% endblock content %}

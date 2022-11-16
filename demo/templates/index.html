@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+{% endblock head %}
+
+{% block content %}
+    {{ super() }}
+    <h1>Home</h1>
+    <p>This is a demonstration of a Python Flask skill running on Optra Edge that provides the following:
+        <ul>
+        <li>A web UI</li>
+        <li>Audio through the headphone jack</li>
+        <li>Video through the HDMI interface</li>
+        <li>Inputs from the portal</li>
+        <li>Outputs to the portal</li>
+        <li>Handling of Cameras, both RTSP and USB</li>
+        </ul>
+    </p>
+    <p class="optra">Use the navigation bar above to access the various functions.</p>
+    <p class="optra">Below is an ordered list of the environment variables in JSON format. You can copy this list by clicking the copy button.<p>
+    <button class="button buttonOptra" onclick="copyToClipboard('ta')">Copy</button>
+
+    <p><pre><code><div id=ta>{{envvars}}</div></code></pre></p>
+
+    <script>
+        function copyToClipboard(var1){
+            let val = document.getElementById(var1).innerHTML;
+            const selBox = document.createElement('textarea');
+            selBox.style.position = 'fixed';
+            selBox.style.left = '0';
+            selBox.style.top = '0';
+            selBox.style.opacity = '0';
+            selBox.value = val;
+            document.body.appendChild(selBox);
+            selBox.focus();
+            selBox.select();
+            document.execCommand('copy');
+            document.body.removeChild(selBox);
+            alert('Text copied to clipboard. Use Ctrl-V to paste the data.');
+        }
+    </script>
+{% endblock content %}

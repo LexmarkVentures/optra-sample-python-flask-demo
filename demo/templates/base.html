@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+	<title>Optra Edge Python Flask Demo Skill</title>
+    <link rel="icon" type="image/png" href="/static/iris.png"/>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/static/base.css">
+	{% block head %}
+	{% endblock head %}
+</head>
+
+<body>
+    <div id="wrapper">
+	    <div id="header">
+            <a href="https://optra.com">
+                <img src="static/optra-edge-rgb-reverse-vertical.png" alt="logo" width="122" height="101" align="left">
+            </a>
+            <div id="title">Python Flask Demo Skill</div>
+	    </div>
+	    <div id="navbar">
+            <a href="/">Home</a>
+            <a href="/audio">Audio</a>
+            <a href="/video">Video</a>
+            <a href="/inputs">Inputs</a>
+            <a href="/outputs">Outputs</a>
+            <a href="/cameras">Cameras</a>
+            <a href="/gpios">GPIOs</a>
+            <a href="/system">System</a>
+            <a href="/about">About</a>
+	    </div>
+        <div id="content">
+	    {% block content %}
+	    {% endblock content %}
+        </div>
+        <div id="footer">
+            <div id="left-footer">
+                <a href="https://lexmark.com">
+                    <img src="static/lxk-logo-reverse-2x.svg" alt="logo" height="30">
+                </a>
+            </div>
+            <div id="right-footer">
+                <button onclick="window.location.href='https://portal.optra.com';" class="button buttonGrey">Portal Login</button>
+                <button onclick="window.location.href='https://optra.com/devices';" class="button buttonOptra">Buy Devices</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

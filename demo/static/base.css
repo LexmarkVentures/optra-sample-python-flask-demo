@@ -1,0 +1,280 @@
+/*******************************************
+ *
+ * Body defaults
+ *
+ *******************************************/
+body {
+  height: 100%;
+  margin: 0;
+  background-color: #FAFAFA;
+  font-family: -apple-system,BlinkMacSystemFont,avenir next,avenir,segoe ui,helvetica neue,helvetica,Ubuntu,roboto,noto,arial,sans-serif;
+}
+
+/*******************************************
+ *
+ * Basic page layout
+ *
+ * wrapper
+ *   header
+ *     title
+ *   navbar
+ *   content
+ *   footer
+ *     left-footer
+ *     right-footer
+ *
+ *******************************************/
+#wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#header {
+  color: #00C425;
+  background-color: #202020;
+  padding: 20px;
+  text-align: right;
+}
+
+#title {
+  font-size: 60px;
+  font-weight: 700;
+  padding: 10px 0px;
+  background-color: #00C425;
+  background-image: linear-gradient(90deg, #008A44, #00C425);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+#navbar {
+  background-image: linear-gradient(to right, #008A44, #00C425);
+}
+
+#navbar a {
+  float: left;
+  display: block;
+  color: #FAFAFA;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#navbar a:hover {
+  background-color: #FAFAFA;
+  color: black;
+}
+
+#content {
+  flex: 1;
+  overflow: auto;
+  background-color: #FAFAFA;
+  padding: 0 1.5rem;
+}
+
+#footer {
+  background-color: #202020;
+  padding: 20px;
+}
+
+#left-footer {
+  float: left;
+  padding: 11px 0px;
+  height: 30;
+}
+
+#right-footer {
+  float: right;
+  height: 52
+}
+
+/*******************************************
+ *
+ * Setup basic tags
+ *
+ *******************************************/
+h1 {
+  background-color: #00C425;
+  background-image: linear-gradient(90deg, #008A44, #00C425);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+h2 {
+  background-color: #00C425;
+  background-image: linear-gradient(90deg, #008A44, #00C425);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+h3 {
+  background-color: #00C425;
+  background-image: linear-gradient(90deg, #008A44, #00C425);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+/*******************************************
+ *
+ * Buttons
+ *
+ *******************************************/
+.button {
+  border: none;
+  color: white;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  text-align: center;
+  letter-spacing: .1rem;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: .875rem;
+  line-height: 1.25rem;
+  margin: 5px 5px;
+  border-radius: 9999px;
+  transition-duration: 0.0s;
+  cursor: pointer;
+}
+
+.buttonSmall {
+  border: none;
+  color: white;
+  padding: 4px 12px;
+  text-align: center;
+  letter-spacing: .1rem;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 9px;
+  margin: 0px 2px;
+  border-radius: 9999px;
+  transition-duration: 0.0s;
+  cursor: pointer;
+}
+
+.buttonOptra {
+  background-image: linear-gradient(to right, #008A44, #00C425);
+  color: white;
+  opacity: 1.0;
+  border: 1px solid #00C425;
+}
+
+.buttonOptra:hover {
+  opacity: 0.8;
+}
+
+.buttonGrey {
+  background: #323137;
+  color: white;
+  opacity: 1.0;
+  border: 1px solid #323137;
+}
+
+.buttonGrey:hover {
+  background: #202020;
+}
+
+.buttonRed {
+  background-image: linear-gradient(to right, #952626, #BA3030);
+  color: white;
+  opacity: 1.0;
+  border: 1px solid #BA3030;
+}
+
+.buttonRed:hover {
+  opacity: 0.8;
+}
+
+/*******************************************
+ *
+ * Video Box
+ *
+ *******************************************/
+.video-box {
+  height: 100%;
+  width: 100%;
+}
+
+.video-box img {
+  max-width: 100%;
+  min-width: 10px;
+  min-height: 10px;
+  border: 2px solid #202020;
+  margin: 0px 0px 20px 0px
+}
+
+
+/*******************************************
+ *
+ * Slider
+ *
+ *******************************************/
+.slidecontainer {
+  width: 500px;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 9999px;
+  background: #00C425;
+  background-image: linear-gradient(to right, #008A44, #00C425);
+  outline: none;
+  opacity: 1.0;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 0.8;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #008A44;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #008A44;
+  cursor: pointer;
+}
+
+
+/*******************************************
+ *
+ * Formatting for Cameras Page 
+ *
+ *******************************************/
+.box {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0px 5px;;
+  height: 25px;
+  width: 300px;
+  margin: 0;
+{
+
+.box : first-child {
+  align-self: center;
+}

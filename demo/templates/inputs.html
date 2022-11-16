@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+{% endblock head %}
+
+{% block content %}
+    {{ super() }}
+    <h1>Inputs</h1>
+    <h2>List of inputs from the module twin:</h2>
+    <p><pre><code>{{inputs}}</code></pre></p>
+    <p><pre><code>{{inputsTime}}</code></pre></p>
+
+    <form action="/inputs" method = "POST">
+        <p><button type="submit" class="button buttonOptra">Refresh</button></p>
+    </form>
+    <h2>Full Module Twin:</h2>
+    <p><pre><code>{{fullTwin}}</code></pre></p>
+{% endblock content %}

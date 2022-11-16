@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+{% endblock head %}
+
+{% block content %}
+    {{ super() }}
+    <form action="/add_rtsp_camera" method = "POST">
+        <p>Camera Name: <input type = "text" style = "width: 200px;" name = "name" value = "{{ name  }}"/></p>
+        <p>Camera URL: <input type = "text" style = "width: 800px;" name = "url" value = "{{ url }}"/></p>
+        <p><button type="submit" class="button buttonOptra">Add</button></p>
+    </form>
+{% endblock content %}

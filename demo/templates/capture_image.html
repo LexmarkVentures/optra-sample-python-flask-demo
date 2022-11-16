@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+{% endblock head %}
+
+{% block content %}
+    {{ super() }}
+    <p><button onclick="window.location.href='/capture_image';" class="button buttonOptra">Refresh Image</button>
+    <button onclick="window.location.href='/cameras';" class="button buttonOptra">Return to Cameras</button></p>
+    <h2>Captured Image</h2>
+    <img src="{{image}}" alt="Captured Image">
+{% endblock content %}

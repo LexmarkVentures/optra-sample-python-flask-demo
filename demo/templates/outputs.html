@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+{% endblock head %}
+
+{% block content %}
+    {{ super() }}
+    <h1>Outputs</h1>
+    <form action="/outputs" method = "POST">
+        <p>Output #1: <input type = "text" style = "width: 300px;" name = "output1" value = "{{ output1 }}"/></p>
+        <p>Output #2: <input type = "text" style = "width: 300px;" name = "output2" value = "{{ output2 }}"/></p>
+        <p><button type="submit" class="button buttonOptra">Send</button></p>
+        <p><code><pre>{{outmsg}}</pre></code></p>
+    </form>
+{% endblock content %}
