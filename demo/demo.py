@@ -77,6 +77,23 @@ def stop_all_videos():
             os.system("kill " + str(proc.pid))
 
 
+def make_tree(path):
+    """Create tree of file system."""
+    tree = dict(name=os.path.basename(path), children=[])
+    try:
+        lst = os.listdir(path)
+    except OSError:
+        pass #ignore errors
+    else:
+        for name in lst:
+            full_path_name = os.path.join(path, name)
+            if os.path.isdir(full_path_name):
+                tree['children'].append(make_tree(full_path_name))
+            else:
+                tree['children'].append(dict(name=name))
+    return tree
+
+
 @app.before_request
 def before_request_callback():
     """Runs before a request."""
@@ -686,6 +703,19 @@ def video_feed():
         gen(settings.camera),
         mimetype='multipart/x-mixed-replace; boundary=frame'
     )
+
+
+###########################
+#
+# Removable Media
+#
+###########################
+@app.route('/removable_media')
+def removable_media():
+    """Render the removable_media page."""
+    path = "/media"
+    return render_template("removable_media.html",
+                           tree=make_tree(path))
 
 
 ###########################

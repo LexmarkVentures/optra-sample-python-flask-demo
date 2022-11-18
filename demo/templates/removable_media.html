@@ -1,0 +1,36 @@
+{% extends "base.html" %}                                                                                                           
+{% block head %}
+    {{ super() }}
+{% endblock head %}
+
+{% block content %}
+    {{ super() }}
+    <h1>Removable Media</h1>
+    <button onclick="window.location.href='/removable_media';" class="button buttonOptra">Refresh</button>
+    {%- if tree.children %}
+        <h2>Devices:</h2>
+        <ul style="list-style: none;">
+            {%- for fs in tree.children %}
+                <li>{{ fs.name }}            
+            {%- endfor %}
+        </ul>
+        <h2>Contents of /{{ tree.name }}:</h2>
+        {%- for fs in tree.children %}
+        <h3>/{{ tree.name }}/{{ fs.name }}</h3>
+        <ul style="list-style: none;">
+            {%- for item in fs.children recursive %}
+            <li>{{ item.name }}
+                {%- if item.children -%}
+                    <ul style="list-style: none;">
+                        {{ loop(item.children) }}
+                    </ul>
+                {%- endif %}
+            </li>
+            {%- endfor %}
+        </ul>
+        {%- endfor %}
+    {%- else %}
+        <p>No Rmovable Media Found</p>
+    {%- endif %}
+{% endblock content %}
+~                       
