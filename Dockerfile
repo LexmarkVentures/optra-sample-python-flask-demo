@@ -43,10 +43,10 @@ RUN apt-get update \
  && usermod -a -G video optra
 
 # Copy over our application
-COPY demo /demo
+COPY --chown=optra:video demo /demo
 
-# Change ownership of /demo to user optra
-RUN chown -R optra:video /demo
+# give user optra access to /dev/ttyUSB0
+RUN usermod -a -G dialout optra
 
 # Set user to optra
 USER optra
