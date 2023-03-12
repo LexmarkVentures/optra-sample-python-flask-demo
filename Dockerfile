@@ -57,5 +57,5 @@ WORKDIR /demo
 # Start it up calling demo.py
 CMD ./demo.py
 
-# Appliction UI on port 7000
+# Application UI on port 7000
 EXPOSE  7000
