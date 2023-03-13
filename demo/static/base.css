@@ -278,3 +278,11 @@ h3 {
 .box : first-child {
   align-self: center;
 }
+
+table.text-center th, table.text-center td
+{
+    text-align: center;
+    vertical-align: middle;
+    height: 80px;
+    width: 180px;
+}

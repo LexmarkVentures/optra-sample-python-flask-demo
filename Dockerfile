@@ -45,7 +45,7 @@ RUN apt-get update \
 # Copy over our application
 COPY --chown=optra:video demo /demo
 
-# give user optra access to /dev/ttyUSB0
+# Give user optra access to /dev/ttyUSB0, owned by group dialout
 RUN usermod -a -G dialout optra
 
 # Set user to optra

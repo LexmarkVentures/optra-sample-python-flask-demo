@@ -6,5 +6,20 @@
 {% block content %}
     {{ super() }}
     <h1>GPIOs</h1>
-    <p>Future home of handling GPIOs.</p>
+    <p>Use the buttons to control <a href="https://www.kmtronic.com/usb-relays.html?product_id=50">KMTronic Two Channel USB Relay Controller (model U2CR)</a></p>
+    <p style="color:red;">{{warning}}</p>
+    <table class="text-center" border="1">
+      <tr>
+        <th>RELAY 1</th>
+        <td><span style="color:blue;">STATE: {{state1}}</span></td>
+        <td><button onclick="window.location.href='/poweron1';" class="button buttonOptra">ON</button></td>
+        <td><button onclick="window.location.href='/poweroff1';" class="button buttonRed">OFF</button></td>
+      </tr>
+      <tr>
+        <th>RELAY 2</th>
+        <td><span style="color:blue;">STATE: {{state2}}</span></td>
+        <td><button onclick="window.location.href='/poweron2';" class="button buttonOptra">ON</button></p></td>
+        <td><button onclick="window.location.href='/poweroff2';" class="button buttonRed">OFF</button></td>
+      </tr>
+    </table>
 {% endblock content %}

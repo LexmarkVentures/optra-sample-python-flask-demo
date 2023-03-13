@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Python Flask application for Optra Edge Python Skill Demo"""
 import os
+from time import sleep
 import asyncio
 import json
 import subprocess
@@ -726,8 +727,76 @@ def removable_media():
 @app.route('/gpios')
 def gpios():
     """Render the GPIOs page."""
-    return render_template("gpios.html")
+    try:
+        fd = os.open("/dev/ttyUSB0", os.O_RDWR)
+    except Exception:
+        fd = None
+    state1 = "???"
+    state2 = "???"
+    if fd:
+        os.system("stty -F /dev/ttyUSB0 9600 ignbrk -brkint -imaxbel -opost -onlcr -isig -icanon -iexten -echo -echoe -echok -echoctl -echoke noflsh -ixon -crtscts")
+        os.write(fd, b'\xff\x01\x03')
+        sleep(0.1)
+        status1 = os.read(fd, 3)
+        if status1[2] == 1:
+            state1 = "ON"
+        elif status1[2] == 0:
+            state1 = "OFF"
+        else:
+            state1 = "!!!"
 
+        os.write(fd, b'\xff\x02\x03')
+        sleep(0.1)
+        status2 = os.read(fd, 3)
+
+        if status2[2] == 1:
+            state2 = "ON"
+        elif status2[2] == 0:
+            state2 = "OFF"
+        else:
+            state2 = "!!!"
+        os.close(fd)
+
+    if fd:
+        warning = ""
+    else:
+        warning = ("Warning: This device ("
+                   + settings.env['OPTRA_DEVICE_MODEL']
+                   + ") does not have ttyUSB hardware.")
+    return render_template("gpios.html",
+                           warning=warning,
+                           state1=state1,
+                           state2=state2)
+
+def ttyusb_write(s):
+    try:
+        fd = os.open("/dev/ttyUSB0", os.O_RDWR)
+    except Exception:
+        fd = None
+    if fd:
+        os.write(fd, s)
+        os.close(fd)
+
+
+@app.route('/poweron1')
+def poweron1():
+    ttyusb_write(b'\xff\x01\x01')
+    return redirect(url_for('gpios'))
+
+@app.route('/poweroff1')
+def poweroff1():
+    ttyusb_write(b'\xff\x01\x00')
+    return redirect(url_for('gpios'))
+
+@app.route('/poweron2')
+def poweron2():
+    ttyusb_write(b'\xff\x02\x01')
+    return redirect(url_for('gpios'))
+
+@app.route('/poweroff2')
+def poweroff2():
+    ttyusb_write(b'\xff\x02\x00')
+    return redirect(url_for('gpios'))
 
 ###########################
 #
