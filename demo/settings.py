@@ -4,6 +4,8 @@
 import os
 import json
 import time
+import requests
+import logging
 from collections import OrderedDict
 from dataclasses import dataclass, field
 from typing import ClassVar
@@ -35,9 +37,9 @@ class Settings:
         "certain unalienable Rights, "
         "that among these are Life, Liberty and the pursuit of Happiness."
     )
-    volume: int = 100
-    VOLUME_MAX: ClassVar[int] = 127
-    VOLUME_MIN: ClassVar[int] = 0
+    volume: int = -20
+    VOLUME_MAX: ClassVar[int] = 0
+    VOLUME_MIN: ClassVar[int] = -127
     voice: str = "English"
     VOICES: ClassVar[list] = [
         "English",
@@ -260,10 +262,11 @@ class Settings:
     def set_volume(self, vol):
         """Set the volume of the headphone jack."""
         self.volume = vol
-        if self.device_has_hdmi:
-            os.system("amixer -c 1 set 'x HP Analog' " + str(vol))
-        else:
-            os.system("amixer -c 0 set 'HP Analog' " + str(vol))
+        resp = requests.put('http://172.18.0.1:8080/webservices/noauth/settings',
+                            data='{"AudioVolume":' + str(vol) + '.0}',
+                            timeout=(3,5))
+        logging.info("Status: %s", resp.status_code)
+        logging.info("Content: %s",  resp.text)
 
     def set_voice(self, value):
         """Set the voice for the gtts-cli program."""

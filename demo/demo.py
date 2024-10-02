@@ -309,6 +309,12 @@ def playvideo():
     os.system("xsetroot -cursor blank_pointer.xbm blank_pointer.xbm")
 
     videofile = request.args.get('videofile', default='earth.mp4')
+    stream = request.args.get('stream')
+    if stream is None or stream=="":
+        uri = "file:///demo/video/" + videofile
+    else:
+        uri = stream
+    """
     command = (
         "gst-launch-1.0 filesrc"
             + " location=/demo/video/"
@@ -327,6 +333,14 @@ def playvideo():
                 + " ! videoscale"
                 + " ! autovideosink"
     )
+    """
+    command = (
+        "gst-launch-1.0 playbin3"
+            + " uri="
+            + uri
+            + " audio-sink=\"alsasink device=" + settings.audio_output_video_device + "\""
+    )
+
     app.logger.info(command)
     os.system("/demo/cmdloop '" + command + "' &")
     return redirect(url_for('video'))

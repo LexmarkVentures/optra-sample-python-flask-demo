@@ -169,7 +169,7 @@ class UsbCameraInfo():
             cam["Formats"] = []
 
             for line in lines:
-                if "Pixel Format" in line:
+                if "[" in line:
                     parsed_line = line.strip().split("'")
                     if len(parsed_line) < 2 or parsed_line[1] == "":
                         logging.info("Bad Pixel Format line")

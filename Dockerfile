@@ -2,7 +2,7 @@
 #
 # Base image is Nvidia's l4t-base:r32.5.0 to match current
 # Optra Edge Vision firmware
-FROM  petedavidson887/l4t-base:r32.5.0
+FROM  nvcr.io/nvidia/l4t-base:35.4.1
 LABEL maintainer "Pete Davidson <pete@lexmark.com>"
 
 ENV DEBIAN_FRONTEND=noninteractive

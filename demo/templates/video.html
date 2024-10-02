@@ -19,7 +19,31 @@
     <button onclick="window.location.href='/playvideo?videofile=sunset.mp4';" class="button buttonOptra">Sunset</button>
     <button onclick="window.location.href='/playvideo?videofile=fire.mp4';" class="button buttonOptra">Fire</button>
     <button onclick="window.location.href='/playvideo?videofile=Lake_Erie.mp4';" class="button buttonOptra">Lake Erie</button>
+    <br>
+    <button onclick="window.location.href='/playvideo?videofile=LGSpainandPatagonia4KDemo.mp4';" class="button buttonOptra">LG 4K30p</button>
+    <button onclick="window.location.href='/playvideo?videofile=SonyFoodFizzleUHD4KDemo.mp4';" class="button buttonOptra">Sony 4K60p</button>
+    <br>
     <button onclick="window.location.href='/playcamera';" class="button buttonOptra">Camera</button>
+    <h3>Streaming Videos</h3>
+    <p>MPEG-4</p>
+    <p><button onclick="window.location.href='/playvideo?stream=https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';" class="button buttonOptra">Big Buck Bunny</button>
+    <button onclick="window.location.href='/playvideo?stream=https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4';" class="button buttonOptra">Elephants Dream</button>
+    <button onclick="window.location.href='/playvideo?stream=https://storage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4';" class="button buttonOptra">Sintel</button>
+    <button onclick="window.location.href='/playvideo?stream=https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4';" class="button buttonOptra">Tears of Steel</button>
+    <br>
+    <button onclick="window.location.href='/playvideo?stream=https://www.pexels.com/download/video/3052446/';" class="button buttonOptra">Waterfall</button>
+    <button onclick="window.location.href='/playvideo?stream=https://www.pexels.com/download/video/2084684/';" class="button buttonOptra">Fountain</button>
+    <button onclick="window.location.href='/playvideo?stream=https://www.pexels.com/download/video/856382/';" class="button buttonOptra">Kaleidoscope</button>
+    <p>DASH</p>
+    <button onclick="window.location.href='/playvideo?stream=https://dash.akamaized.net/dash264/TestCases/1b/qualcomm/1/MultiRatePatched.mpd ';" class="button buttonOptra">Big Buck Bunny</button>
+    <button onclick="window.location.href='/playvideo?stream=https://dash.akamaized.net/dash264/TestCases/2c/qualcomm/1/MultiResMPEG2.mpd ';" class="button buttonOptra">Elephants Dream</button>
+    <button onclick="window.location.href='/playvideo?stream=https://dash.akamaized.net/dash264/TestCasesUHD/2b/11/MultiRate.mpd ';" class="button buttonOptra">Meridian</button>
+    <p>HLS</p>
+    <button onclick="window.location.href='/playvideo?stream=https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8 ';" class="button buttonOptra">Big Buck Bunny</button>
+    <button onclick="window.location.href='/playvideo?stream=https://playertest.longtailvideo.com/adaptive/elephants_dream_v4/redundant.m3u8 ';" class="button buttonOptra">Elephants Dream</button>
+    <button onclick="window.location.href='/playvideo?stream=https://playertest.longtailvideo.com/adaptive/oceans_aes/oceans_aes.m3u8 ';" class="button buttonOptra">Oceans</button>
+    <button onclick="window.location.href='/playvideo?stream=http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8 ';" class="button buttonOptra">Apple</button>
+    <button onclick="window.location.href='/playvideo?stream=https://bitmovin-a.akamaihd.net/content/playhouse-vr/m3u8s/105560.m3u8 ';" class="button buttonOptra">VR Playhouse</button>
     <p><button onclick="window.location.href='/stopvideo';" class="button buttonRed">Stop Videos</button></p>
 
     <form class="form-inline" method="POST" action="{{ url_for('change_audio_output', return_to='video') }}">
@@ -27,7 +51,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text"><h2>Audio Output:</h2></span>
             </div>
-            <select name="audioOutput" class="selectpicker form-control>
+            <select name="audioOutput" class="selectpicker form-control">
                 {% for item in audioOutputs %}
                     {% if audioOutput == item %}
                         <option value="{{ item }}" selected>{{ item }}</option>
