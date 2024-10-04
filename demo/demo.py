@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Python Flask application for Optra Edge Python Skill Demo"""
 import os
+import re
 from time import sleep
 import asyncio
 import json
@@ -20,6 +21,18 @@ from settings import Settings
 
 app = Flask(__name__)
 
+def get_active_hdmi_resolution():
+    # Run the xrandr command and capture the output
+    output = subprocess.check_output("xrandr").decode("utf-8")
+
+    # Search for the HDMI output with its current active resolution (marked with a '*')
+    match = re.search(r'HDMI.*? connected.*?\n\s+(\d+)x(\d+)\s+\d+\.\d+\*', output)
+
+    if match:
+        width, height = match.groups()
+        return int(width), int(height)
+    else:
+        return None
 
 def gen(camera):
     """Video streaming generator function."""
@@ -308,12 +321,27 @@ def playvideo():
     # Hide the mouse pointer
     os.system("xsetroot -cursor blank_pointer.xbm blank_pointer.xbm")
 
+    x_res, y_res = get_active_hdmi_resolution()
+
     videofile = request.args.get('videofile', default='earth.mp4')
     stream = request.args.get('stream')
     if stream is None or stream=="":
         uri = "file:///demo/video/" + videofile
     else:
         uri = stream
+    command = (
+        "gst-launch-1.0 uridecodebin"
+            + " uri="
+            +  uri
+            + " name=demux"
+            + " demux."
+                + " ! audioconvert"
+                + " ! audioresample"
+                + " ! alsasink device=" + settings.audio_output_video_device
+            + " demux."
+                + " ! nvvidconv"
+                + " ! nv3dsink window-x=0 window-y=0 window-width=" + str(x_res) + " window-height=" + str(y_res)
+    )
     """
     command = (
         "gst-launch-1.0 filesrc"
@@ -329,17 +357,18 @@ def playvideo():
             + " demux.video_0"
                 + " ! queue"
                 + " ! decodebin"
-                + " ! videoconvert"
+                + " ! nvvidconv"
                 + " ! videoscale"
-                + " ! autovideosink"
+                + " ! nv3dsink window-x=0 window-y=0 window-width=" + str(x_res) + " window-height=" + str(y_res)
     )
-    """
     command = (
-        "gst-launch-1.0 playbin3"
+        "gst-launch-1.0 playbin"
             + " uri="
             + uri
             + " audio-sink=\"alsasink device=" + settings.audio_output_video_device + "\""
+            + " video-sink=\"nv3dsink window-x=0 window-y=0 window-width=" + str(x_res) + " window-height=" + str(y_res) + "\""
     )
+    """
 
     app.logger.info(command)
     os.system("/demo/cmdloop '" + command + "' &")
@@ -363,6 +392,8 @@ def playcamera():
     # Hide the mouse pointer
     os.system("xsetroot -cursor blank_pointer.xbm blank_pointer.xbm")
 
+    x_res, y_res = get_active_hdmi_resolution()
+
     if Camera.is_usb_cam(settings.selected_camera):
 
         #
@@ -381,7 +412,7 @@ def playcamera():
 
         if settings.usb_camera_pixel_format == "MJPG":
             capture_type = "image/jpeg"
-            decoding = " ! nvjpegdec ! 'video/x-raw'"
+            decoding = " ! nvjpegdec"
         else:
             capture_type = "video/x-raw"
             decoding = ""
@@ -397,7 +428,7 @@ def playcamera():
                 + decoding
                 + " ! nvvidconv"
                 + " ! 'video/x-raw(memory:NVMM), format=NV12'"
-                + " ! autovideosink"
+                + " ! nv3dsink window-x=0 window-y=0 window-width=" + str(x_res) + " window-height=" + str(y_res)
         )
 
     else:
@@ -409,7 +440,7 @@ def playcamera():
             "gst-launch-1.0 rtspsrc "
                 + "location='" + settings.camera_source + "'"
                 + " ! decodebin"
-                + " ! autovideosink"
+                + " ! nv3dsink window-x=0 window-y=0 window-width=" + str(x_res) + " window-height=" + str(y_res)
         )
 
     app.logger.info(command)
