@@ -412,10 +412,10 @@ def playcamera():
 
         if settings.usb_camera_pixel_format == "MJPG":
             capture_type = "image/jpeg"
-            decoding = " ! nvjpegdec"
+            decode_conv = " ! nvv4l2decoder"
         else:
             capture_type = "video/x-raw"
-            decoding = ""
+            decode_conv = " ! nvvidconv"
 
         command = (
             "gst-launch-1.0 v4l2src"
@@ -425,9 +425,8 @@ def playcamera():
                     + ", height=" + height
                     + ", framerate=" + frame_rate
                     + ", format=" + pixel_format + "'"
-                + decoding
-                + " ! nvvidconv"
-                + " ! 'video/x-raw(memory:NVMM), format=NV12'"
+                + decode_conv
+                + " ! 'video/x-raw(memory:NVMM)'"
                 + " ! nv3dsink window-x=0 window-y=0 window-width=" + str(x_res) + " window-height=" + str(y_res)
         )
 
